@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+jinja2
+pillow
+numpy
+scikit-image
+opencv-python
+requests
+gradio_client

@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Comparateur d'images universel</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #222;
+      margin: 0;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    .compare-container {
+      position: relative;
+      display: inline-block;
+      cursor: ew-resize;
+      user-select: none;
+      overflow: hidden;
+      border: 2px solid #555;
+      border-radius: 8px;
+    }
+
+    .compare-container img {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* garde les proportions, adapte à la zone */
+    }
+
+    .overlay {
+      clip-path: inset(0 50% 0 0);
+      transition: clip-path 0.05s;
+    }
+
+    .divider {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 3px;
+      height: 100%;
+      background: #fff;
+      cursor: ew-resize;
+      z-index: 10;
+      box-shadow: 0 0 5px rgba(0,0,0,0.4);
+    }
+
+    button {
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      border: none;
+      background: #007bff;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <button id="toggle">🔍 Afficher taille réelle</button>
+
+  <div class="compare-container" id="compare">
+    <img id="img1" src="results/upscale2-4x-v3-apres-post-trait.jpg" alt="Avant">
+    <img id="img2" src="results/upscaled_result_befor_pret.png" alt="Après" class="overlay">
+    <!-- <img id="img1" src="test/results/origine.jpeg" alt="Avant">
+    <img id="img2" src="test/results/origine_cleaned.jpeg" alt="Après" class="overlay"> -->
+    <div class="divider"></div>
+  </div>
+
+  <script>
+    const container = document.getElementById('compare');
+    const overlay = document.getElementById('img2');
+    const divider = container.querySelector('.divider');
+    const img1 = document.getElementById('img1');
+    const img2 = document.getElementById('img2');
+    const toggleBtn = document.getElementById('toggle');
+
+    let realSize = false;
+
+    function adjustContainer() {
+      // Définit une taille uniforme basée sur la plus petite image
+      const width = Math.min(img1.naturalWidth, img2.naturalWidth);
+      const height = Math.min(img1.naturalHeight, img2.naturalHeight);
+      container.style.width = width + 'px';
+      container.style.height = height + 'px';
+    }
+
+    // Attendre le chargement complet des deux images
+    let loaded = 0;
+    [img1, img2].forEach(img => {
+      if (img.complete) loaded++;
+      img.onload = () => {
+        loaded++;
+        if (loaded === 2) adjustContainer();
+      };
+    });
+    if (loaded === 2) adjustContainer();
+
+    // Interaction curseur
+    function moveDivider(e) {
+      const rect = container.getBoundingClientRect();
+      const x = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
+      const percent = (x / rect.width) * 100;
+      overlay.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+      divider.style.left = `${percent}%`;
+    }
+
+    container.addEventListener('mousemove', moveDivider);
+    container.addEventListener('touchmove', e => moveDivider(e.touches[0]));
+
+    // Bascule entre taille réelle et taille uniforme
+    toggleBtn.onclick = () => {
+      realSize = !realSize;
+      if (realSize) {
+        img1.style.width = 'auto';
+        img1.style.height = 'auto';
+        img2.style.width = 'auto';
+        img2.style.height = 'auto';
+        container.style.width = Math.max(img1.naturalWidth, img2.naturalWidth) + 'px';
+        container.style.height = Math.max(img1.naturalHeight, img2.naturalHeight) + 'px';
+        toggleBtn.textContent = '↩️ Revenir à la taille ajustée';
+      } else {
+        img1.style.width = '100%';
+        img1.style.height = '100%';
+        img2.style.width = '100%';
+        img2.style.height = '100%';
+        adjustContainer();
+        toggleBtn.textContent = '🔍 Afficher taille réelle';
+      }
+    };
+  </script>
+</body>
+</html>

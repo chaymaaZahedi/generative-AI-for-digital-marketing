@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #818cf8;
+            --secondary: #64748b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --radius: 1rem;
+            --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1280px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0 0 0.5rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.025em;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* Grid Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 2fr 1fr;
+                align-items: start;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        /* Image Comparison */
+        .compare-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: calc(var(--radius) - 4px);
+            overflow: hidden;
+            background: #e2e8f0;
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+            /* Min height to avoid collapse before load */
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .compare-container {
+            position: relative;
+            display: block;
+            cursor: ew-resize;
+            user-select: none;
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+
+        .compare-container img {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .overlay {
+            clip-path: inset(0 50% 0 0);
+            transition: clip-path 0.05s ease-out;
+        }
+
+        .divider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .divider::after {
+            content: "↔";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2.5rem;
+            height: 2.5rem;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.875rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            gap: 0.5rem;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 10px -1px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-body);
+            border-color: #cbd5e1;
+        }
+
+        .btn-toggle {
+            background: #f1f5f9;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            width: auto;
+        }
+
+        .btn-toggle:hover {
+            background: #e2e8f0;
+            color: var(--text-main);
+        }
+
+        /* Sidebar Sections */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Metadata */
+        details {
+            width: 100%;
+        }
+
+        details summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-main);
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details summary::after {
+            content: "+";
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        details[open] summary::after {
+            content: "-";
+        }
+
+        .metadata-list {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .metadata-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--bg-body);
+        }
+
+        .meta-label {
+            color: var(--text-muted);
+        }
+
+        .meta-value {
+            font-weight: 600;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            background: var(--bg-body);
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            transition: border-color 0.2s;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Results Box */
+        .results-box {
+            background: var(--bg-body);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .result-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Progress Overlay */
+        #progressOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .progress-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: var(--shadow-hover);
+            border: 1px solid var(--border);
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.2s ease;
+            border-radius: 4px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow-hover);
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close:hover {
+            color: var(--text-main);
+        }
+
+        button:disabled,
+        .btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ title }}</h1>
+            <div class="subtitle">{{ subtitle }}</div>
+        </header>
+
+        <div class="content-grid">
+            <!-- Left Column: Image Comparison -->
+            <div class="card">
+                <div class="compare-wrapper">
+                    <div class="compare-container" id="compare">
+                        <!-- Original Image -->
+                        <img id="img1" src="/temp_uploads/{{ original_filename }}" alt="Original">
+                        <!-- Upscaled Image (Overlay) -->
+                        <img id="img2" src="/temp_uploads/{{ upscaled_filename }}" alt="Upscaled" class="overlay">
+                        <div class="divider"></div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button id="toggle" class="btn btn-toggle">🔍 Toggle Full Resolution</button>
+                </div>
+            </div>
+
+            <!-- Right Column: Sidebar -->
+            <div class="sidebar">
+
+                <!-- Actions -->
+                <div class="card">
+                    <h2 class="section-title">Actions</h2>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <form action="/enhance" method="post" style="width: 100%;">
+                            <input type="hidden" name="filename" value="{{ upscaled_filename }}">
+                            <input type="hidden" name="original_filename" value="{{ original_filename }}">
+                            <button type="submit" class="btn btn-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                                </svg>
+                                Enhance Result
+                            </button>
+                        </form>
+
+                        <a href="/temp_uploads/{{ upscaled_filename }}" download class="btn btn-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <path d="M7 10l5 5 5-5"></path>
+                                <path d="M12 15V3"></path>
+                            </svg>
+                            Download Image
+                        </a>
+
+                        {% if cmyk_download %}
+                        <a href="/temp_uploads/{{ cmyk_download }}" download class="btn btn-primary"
+                            style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <path d="M7 10l5 5 5-5"></path>
+                                <path d="M12 15V3"></path>
+                            </svg>
+                            Download CMYK Image
+                        </a>
+
+                        <button type="button" id="exportPdfBtn" class="btn btn-primary"
+                            style="background: linear-gradient(135deg, #db2777 0%, #be185d 100%);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            Export PDF/X-1a
+                        </button>
+                        {% endif %}
+
+                        {% if pdf_download %}
+                        <a href="/temp_uploads/{{ pdf_download }}" download class="btn btn-primary"
+                            style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="12" y1="18" x2="12" y2="12"></line>
+                                <line x1="9" y1="15" x2="15" y2="15"></line>
+                            </svg>
+                            Download PDF/X-1a
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Print Quality Check -->
+                {% if show_print_options %}
+                <div class="card">
+                    <h2 class="section-title">Print Quality Check</h2>
+                    <form id="printCheckForm">
+                        <div class="form-group">
+                            <label for="supportType">Print Type</label>
+                            <select id="supportType" name="support_type">
+                                <option value="flyer">Flyer / Brochure (300 DPI)</option>
+                                <option value="poster">Poster (150 DPI)</option>
+                                <option value="billboard">Billboard (10-30 DPI)</option>
+                            </select>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="widthM">Width (cm)</label>
+                                <input type="number" id="widthM" name="width_m" step="0.1" placeholder="21">
+                            </div>
+                            <div class="form-group">
+                                <label for="heightM">Height (cm)</label>
+                                <input type="number" id="heightM" name="height_m" step="0.1" placeholder="29.7">
+                            </div>
+                        </div>
+                        <button type="button" id="checkQualityBtn" class="btn btn-primary"
+                            style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                            Check Quality
+                        </button>
+                    </form>
+
+                    <div id="printResults" class="results-box" style="display: none;">
+                        <div class="result-row">
+                            <span class="meta-label">Current DPI</span>
+                            <span class="highlight" id="currentDpi">--</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="meta-label">Required DPI</span>
+                            <span class="highlight" id="requiredDpi">--</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="meta-label">Scale Factor</span>
+                            <span class="highlight" id="scaleFactor">--</span>
+                        </div>
+
+                        <div style="margin-top: 1rem;">
+                            <div id="actionButtons" style="display: none; gap: 1rem; flex-direction: column;">
+                                <form action="/upscale_lanczos" method="post" id="lanczosForm" style="width: 100%;">
+                                    <input type="hidden" name="filename" value="{{ upscaled_filename }}">
+                                    <input type="hidden" name="original_filename" value="{{ original_filename }}">
+                                    <input type="hidden" name="scale_factor" id="lanczosScaleFactor">
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); width: 100%;">
+                                        Upscale with Lanczos
+                                    </button>
+                                </form>
+                            </div>
+                            <div id="qualityOkMsg"
+                                style="display: none; color: var(--success); font-weight: 600; text-align: center; margin-top: 0.5rem;">
+                                ✅ Quality is sufficient!
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <button type="button" id="softProofBtn" class="btn btn-secondary" style="width: 100%;"
+                                    {% if not icc_profiles %}disabled{% endif %}>
+                                    {% if icc_profiles %}Soft Proofing{% else %}Soft
+                                    Proofing (No Profiles){% endif %}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Satisfaction Buttons (Soft Proofing Only) -->
+                {% if title == 'Soft Proofing Preview' %}
+                <div class="card">
+                    <!-- <h2 class="section-title">Result Satisfaction</h2> -->
+                    <div style="display: flex; gap: 1rem;">
+                        <form action="/convert_cmyk" method="post" style="flex: 1;">
+                            <input type="hidden" name="filename" value="{{ source_filename }}">
+                            <input type="hidden" name="icc_profile" value="{{ selected_profile }}">
+                            <button type="submit" class="btn btn-primary"
+                                style="background-color: #10b981; border-color: #10b981; width: 100%;">Generate CMYK
+                                Final Image</button>
+                        </form>
+                        <!-- <button class="btn btn-primary" disabled
+                            style="background-color: #ef4444; border-color: #ef4444; flex: 1;">Not Satisfied</button> -->
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Metadata -->
+                <div class="card">
+                    <details>
+                        <summary>Image Details</summary>
+                        <div class="metadata-list">
+                            {% for key, value in metadata.items() %}
+                            <div class="metadata-item">
+                                <span class="meta-label">{{ key|replace('_', ' ')|title
+                                    }}</span>
+                                <span class="meta-value">{{ value }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+
+        <!-- Soft Proofing Modal -->
+        <div id="softProofModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 class="section-title">Select ICC Profile</h2>
+                <form action="/soft_proof" method="post" id="softProofForm">
+                    <input type="hidden" name="filename" value="{{ upscaled_filename }}">
+                    <input type="hidden" name="original_filename" value="{{ original_filename }}">
+                    <div class="form-group">
+                        <label for="iccProfile">Profile</label>
+                        <select name="icc_profile" id="iccProfile">
+                            {% if icc_profiles %}
+                            {% for profile in icc_profiles %}
+                            <option value="{{ profile }}">{{ profile }}</option>
+                            {% endfor %}
+                            {% else %}
+                            <option disabled selected>No profiles found</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" {% if not icc_profiles %}disabled{% endif %}>
+                        Apply Soft Proofing
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Progress Overlay -->
+        <div id="progressOverlay">
+            <div class="progress-container">
+                <h3 id="progressTitle" style="margin: 0; font-size: 1.25rem;">Processing...
+                </h3>
+                <p id="progressDesc" style="color: var(--text-muted); margin-top: 0.5rem;">
+                    Please wait.</p>
+                <div class="progress-bar-bg">
+                    <div id="progressBar" class="progress-bar-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export PDF Modal -->
+        <div id="exportPdfModal" class="modal">
+            <div class="modal-content">
+                <span class="close-pdf close">&times;</span>
+                <h2 class="section-title">Select Output Intent Profile for PDF/X-1a</h2>
+                <p class="subtitle" style="margin-bottom: 1rem;">Choose the ICC profile for the PDF output intent.</p>
+                <form action="/export_pdfx1a" method="post" id="exportPdfForm">
+                    <input type="hidden" name="filename" value="{{ cmyk_download }}">
+                    <div class="form-group">
+                        <label for="pdfIccProfile">Profile</label>
+                        <select name="icc_profile" id="pdfIccProfile">
+                            {% if icc_profiles %}
+                            {% for profile in icc_profiles %}
+                            <option value="{{ profile }}">{{ profile }}</option>
+                            {% endfor %}
+                            {% else %}
+                            <option disabled selected>No profiles found</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" {% if not icc_profiles %}disabled{% endif %}
+                        style="background: linear-gradient(135deg, #db2777 0%, #be185d 100%);">
+                        Export PDF
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            // --- Image Comparison Logic ---
+            const container = document.getElementById('compare');
+            const overlay = document.getElementById('img2');
+            const divider = container.querySelector('.divider');
+            const img1 = document.getElementById('img1');
+            const img2 = document.getElementById('img2');
+            const toggleBtn = document.getElementById('toggle');
+            let realSize = false;
+
+            function adjustContainer() {
+                const refImg = img1.naturalWidth ? img1 : (img2.naturalWidth ? img2 : null);
+                if (refImg) {
+                    const aspectRatio = refImg.naturalWidth / refImg.naturalHeight;
+                    const parentWidth = container.parentElement.clientWidth;
+                    const maxWidth = Math.min(parentWidth, 1200);
+                    const height = maxWidth / aspectRatio;
+                    container.style.width = maxWidth + 'px';
+                    container.style.height = height + 'px';
+                }
+            }
+
+            let loaded = 0;
+            function onImageEvent() {
+                loaded++;
+                if (loaded === 2) adjustContainer();
+            }
+            [img1, img2].forEach(img => {
+                if (img.complete) onImageEvent();
+                else { img.onload = onImageEvent; img.onerror = onImageEvent; }
+            });
+
+            function moveDivider(e) {
+                const rect = container.getBoundingClientRect();
+                const x = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
+                const percent = (x / rect.width) * 100;
+                overlay.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+                divider.style.left = `${percent}%`;
+            }
+            container.addEventListener('mousemove', moveDivider);
+            container.addEventListener('touchmove', e => moveDivider(e.touches[0]));
+
+            toggleBtn.onclick = () => {
+                realSize = !realSize;
+                if (realSize && img2.naturalWidth) {
+                    container.style.width = img2.naturalWidth + 'px';
+                    container.style.height = img2.naturalHeight + 'px';
+                    toggleBtn.textContent = '↩️ Fit to Screen';
+                } else {
+                    adjustContainer();
+                    toggleBtn.textContent = '🔍 Toggle Full Resolution';
+                }
+            };
+            window.addEventListener('resize', () => { if (!realSize) adjustContainer(); });
+
+            // --- Progress Helper ---
+            function showProgress(title, desc) {
+                const overlay = document.getElementById('progressOverlay');
+                const bar = document.getElementById('progressBar');
+                const titleEl = document.getElementById('progressTitle');
+                const descEl = document.getElementById('progressDesc');
+
+                if (titleEl) titleEl.textContent = title;
+                if (descEl) descEl.textContent = desc;
+
+                overlay.style.display = 'flex';
+                bar.style.width = '0%';
+
+                let width = 0;
+                const interval = setInterval(() => {
+                    if (width >= 90) clearInterval(interval);
+                    else { width++; bar.style.width = width + '%'; }
+                }, 50);
+            }
+
+            // --- Enhancement Progress ---
+            const enhanceForm = document.querySelector('form[action="/enhance"]');
+            if (enhanceForm) {
+                enhanceForm.addEventListener('submit', function (e) {
+                    showProgress('Enhancing Image...', 'Please wait while we denoise and sharpen.');
+                });
+            }
+
+            // --- Lanczos Progress ---
+            const lanczosForm = document.getElementById('lanczosForm');
+            if (lanczosForm) {
+                lanczosForm.addEventListener('submit', function (e) {
+                    showProgress('Upscaling Image...', 'Please wait while we upscale your image with Lanczos.');
+                });
+            }
+
+            // --- Soft Proofing Logic ---
+            const softProofBtn = document.getElementById('softProofBtn');
+            const softProofModal = document.getElementById('softProofModal');
+            const softProofForm = document.getElementById('softProofForm');
+            const closeModal = document.querySelector('.close');
+
+            if (softProofBtn && softProofModal) {
+                softProofBtn.addEventListener('click', () => {
+                    softProofModal.style.display = 'flex';
+                });
+
+                closeModal.addEventListener('click', () => {
+                    softProofModal.style.display = 'none';
+                });
+
+                window.addEventListener('click', (event) => {
+                    if (event.target === softProofModal) {
+                        softProofModal.style.display = 'none';
+                    }
+                });
+
+                softProofForm.addEventListener('submit', () => {
+                    softProofModal.style.display = 'none';
+                    showProgress('Generating Soft Proof...', 'Simulating print colors with selected profile.');
+                });
+            }
+
+            // --- Print Quality Check ---
+            const checkQualityBtn = document.getElementById('checkQualityBtn');
+            if (checkQualityBtn) {
+                checkQualityBtn.addEventListener('click', async () => {
+                    const supportType = document.getElementById('supportType').value;
+                    const widthM = document.getElementById('widthM').value;
+                    const heightM = document.getElementById('heightM').value;
+                    const filename = "{{ upscaled_filename }}";
+
+                    if (!widthM || !heightM) { alert("Please enter both width and height."); return; }
+
+                    const formData = new FormData();
+                    formData.append('filename', filename);
+                    formData.append('width_m', widthM / 100);
+                    formData.append('height_m', heightM / 100);
+                    formData.append('support_type', supportType);
+
+                    try {
+                        const response = await fetch('/check_print', { method: 'POST', body: formData });
+                        const data = await response.json();
+                        if (data.error) { alert("Error: " + data.error); return; }
+
+                        document.getElementById('printResults').style.display = 'block';
+                        document.getElementById('currentDpi').textContent = `${data.current_dpi_x} x ${data.current_dpi_y}`;
+                        document.getElementById('requiredDpi').textContent = data.recommended_dpi;
+                        document.getElementById('scaleFactor').textContent = data.scale_factor_needed + 'x';
+
+                        const actionButtons = document.getElementById('actionButtons');
+                        const qualityOkMsg = document.getElementById('qualityOkMsg');
+
+                        if (data.upscale_needed) {
+                            actionButtons.style.display = 'flex';
+                            qualityOkMsg.style.display = 'none';
+                            document.getElementById('lanczosScaleFactor').value = data.scale_factor_needed;
+                        } else {
+                            actionButtons.style.display = 'none';
+                            qualityOkMsg.style.display = 'block';
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert("Failed to check print quality.");
+                    }
+                });
+            }
+            // --- Export PDF Modal Logic ---
+            const exportPdfBtn = document.getElementById('exportPdfBtn');
+            const exportPdfModal = document.getElementById('exportPdfModal');
+            const exportPdfForm = document.getElementById('exportPdfForm');
+            const closePdfModal = document.querySelector('.close-pdf');
+
+            if (exportPdfBtn && exportPdfModal) {
+                exportPdfBtn.addEventListener('click', () => {
+                    exportPdfModal.style.display = 'flex';
+                });
+
+                closePdfModal.addEventListener('click', () => {
+                    exportPdfModal.style.display = 'none';
+                });
+
+                window.addEventListener('click', (event) => {
+                    if (event.target === exportPdfModal) {
+                        exportPdfModal.style.display = 'none';
+                    }
+                });
+
+                exportPdfForm.addEventListener('submit', () => {
+                    exportPdfModal.style.display = 'none';
+                    showProgress('Generating PDF/X-1a...', 'Converting image and embedding properties.');
+                });
+            }
+        </script>
+</body>
+
+</html>

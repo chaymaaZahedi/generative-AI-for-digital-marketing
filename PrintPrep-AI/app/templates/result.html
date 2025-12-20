@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 2rem;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #4a90e2;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #555;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Metadata for {{ filename }}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, value in metadata.items() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; align-items: center;">
+            <a href="/" class="back-link" style="margin-top: 0;">&larr; Upload another image</a>
+
+            <form id="upscaleForm" action="/upscale" method="post" style="margin: 0;">
+                <input type="hidden" name="filename" value="{{ filename }}">
+                <button type="submit"
+                    style="background-color: #28a745; width: auto; font-size: 1.1rem; padding: 0.8rem 2rem; box-shadow: 0 4px 6px rgba(40, 167, 69, 0.3); font-weight: 600; display: flex; align-items: center; gap: 0.5rem; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    <span>🚀</span> Upscale Image (x6)
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Progress Overlay -->
+    <div id="progressOverlay"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; flex-direction: column;">
+        <div
+            style="background: white; padding: 2rem; border-radius: 8px; text-align: center; max-width: 400px; width: 90%;">
+            <h2 style="color: #333; margin-top: 0;">Upscaling in Progress...</h2>
+            <p style="color: #666; margin-bottom: 1.5rem;">Please wait, this may take a few moments.</p>
+            <div style="width: 100%; background-color: #f0f0f0; border-radius: 4px; overflow: hidden;">
+                <div id="progressBar"
+                    style="width: 0%; height: 20px; background-color: #4a90e2; transition: width 0.5s ease;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('upscaleForm').addEventListener('submit', function (e) {
+            const overlay = document.getElementById('progressOverlay');
+            const bar = document.getElementById('progressBar');
+            overlay.style.display = 'flex';
+
+            // Simulate progress since we don't have real-time feedback from the server
+            let width = 0;
+            const interval = setInterval(function () {
+                if (width >= 90) {
+                    clearInterval(interval);
+                } else {
+                    width++;
+                    bar.style.width = width + '%';
+                }
+            }, 100); // Adjust speed as needed
+        });
+    </script>
+</body>
+
+</html>
