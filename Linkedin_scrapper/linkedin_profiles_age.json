@@ -1,0 +1,532 @@
+{
+  "success": true,
+  "total_profiles": 24,
+  "all_profiles": [
+    {
+      "name": "Aya Ennair",
+      "url": "https://www.linkedin.com/in/ayaennair",
+      "location": "marrakech",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Male",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQETcU6ms2tE3A/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1728475734466?e=1765411200&v=beta&t=Q7kPt-bGBb6xGztSOtjr3_UrJ8UUdmkxrcRldAP0Bus",
+      "search_rank": 1,
+      "education": [
+        {
+          "school": "Faculté des Sciences Semlalia Marrakech",
+          "degree": "Master, Data science",
+          "date_range": null
+        },
+        {
+          "school": "École Supérieure de Technologie de Safi",
+          "degree": "Licence professionnelle, Ingénierie des systèmes d'information et réseaux",
+          "date_range": "Oct 2022 - Jun 2023"
+        }
+      ],
+      "estimated_age": 24
+    },
+    {
+      "name": "Issam E.",
+      "url": "https://www.linkedin.com/in/issam-er-rrahmani",
+      "location": "marrakech",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Unknown",
+      "image_url": "https://media.licdn.com/dms/image/v2/C5603AQGeD6kwlLvKdQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1567111829840?e=1765411200&v=beta&t=AFmgpuJNvHeBtv25w5MxtxU7EU7n6YWlzc9wsnQag_w",
+      "search_rank": 2,
+      "education": [],
+      "estimated_age": null
+    },
+    {
+      "name": "Abdelhak EL AISSI",
+      "url": "https://www.linkedin.com/in/abdelhak-el-aissi-b219b5160",
+      "location": "marrakech",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Male",
+      "image_url": "https://media.licdn.com/dms/image/v2/D5603AQGRBqSudUm78A/profile-displayphoto-shrink_100_100/B56ZPekl5kGsAU-/0/1734605955780?e=1765411200&v=beta&t=SVGsFP6kiTBRwqViH2aXNo8mxtyVGWX5DUKAnvw0IQU",
+      "search_rank": 3,
+      "education": [
+        {
+          "school": "École mohammedia d'ingénieurs",
+          "degree": "2017 - 2021",
+          "date_range": "2017 - 2021"
+        }
+      ],
+      "estimated_age": 28
+    },
+    {
+      "name": "Abderrahmane Samali",
+      "url": "https://www.linkedin.com/in/abderrahmane-samali-16157b1b3",
+      "location": "marrakech",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Male",
+      "image_url": "https://media.licdn.com/dms/image/v2/C4E03AQGgG6L9R7ar0w/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1664219633330?e=1765411200&v=beta&t=XRmFYQ33N2mERuAO6HIA9Ec02ibfLdhHaV8Dm_k_rcw",
+      "search_rank": 4,
+      "education": [
+        {
+          "school": "Mohammed V University in Rabat",
+          "degree": "Master's degree, Data science & Engineering",
+          "date_range": "Oct 2023 - Jul 2025"
+        },
+        {
+          "school": "Faculté des sciences de Rabat",
+          "degree": "Licence professionnelle , Big Data & Artificial Intelligence",
+          "date_range": "Oct 2022 - Jul 2023"
+        }
+      ],
+      "estimated_age": 24
+    },
+    {
+      "name": "Ahmed Magha",
+      "url": "https://www.linkedin.com/in/ahmed-magha-978841224",
+      "location": "marrakech",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Unknown",
+      "image_url": null,
+      "search_rank": 5,
+      "education": [
+        {
+          "school": "ENSA Safi",
+          "degree": "Bachelor of Applied Science - BASc, Computer Systems Networking and Telecommunications",
+          "date_range": "2021 - 2026"
+        }
+      ],
+      "estimated_age": 22
+    },
+    {
+      "name": "AYMANE FADILI",
+      "url": "https://www.linkedin.com/in/aymane-fadili",
+      "location": "marrakech",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Male",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQF7GuOFfWJX4w/profile-displayphoto-scale_100_100/B4EZpz85PFHMAc-/0/1762881939879?e=1765411200&v=beta&t=mXL3rm35gEnNx8xcffgqZ-YHYv96YgSrLWQ2V_3fwt8",
+      "search_rank": 6,
+      "education": [
+        {
+          "school": "Faculté des Sciences Semlalia Marrakech",
+          "degree": "Doctor of Philosophy, Artificial Intelligence",
+          "date_range": "Nov 2025 - 2028"
+        },
+        {
+          "school": "Faculté des Sciences Semlalia Marrakech",
+          "degree": "Master's degree, Data science",
+          "date_range": "Sep 2023 - Jun 2025"
+        }
+      ],
+      "estimated_age": null
+    },
+    {
+      "name": "Nouhaila A.",
+      "url": "https://www.linkedin.com/in/nouhaila-a-513657152",
+      "location": "marrakech",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Unknown",
+      "image_url": null,
+      "search_rank": 7,
+      "education": [
+        {
+          "school": "Faculté des Sciences et Techniques Gueliz - Marrakech",
+          "degree": "Master en, Science des données et aide à la décision",
+          "date_range": "2020 - 2022"
+        },
+        {
+          "school": "Faculté des Sciences et Techniques Gueliz - Marrakech",
+          "degree": "Licence Sciences et Techniques, systèmes informatiques réparties",
+          "date_range": "2019 - 2020"
+        }
+      ],
+      "estimated_age": 27
+    },
+    {
+      "name": "Soufiane Ait El Aouad",
+      "url": "https://www.linkedin.com/in/soufiane-ait-el-aouad",
+      "location": "marrakech",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Male",
+      "image_url": "https://media.licdn.com/dms/image/v2/D5603AQEpRuur_V5F_g/profile-displayphoto-shrink_100_100/B56ZVJi9lNHEAU-/0/1740695657881?e=1765411200&v=beta&t=zBcpGcujZX6ttVfSRudfk-FKCGlbrDTvSepWlzkuoMI",
+      "search_rank": 8,
+      "education": [
+        {
+          "school": "EMINES - School of Industrial Management / Mohammed VI Polytechnic University",
+          "degree": "Diplôme d'ingénieur, Ingénierie / gestion industrielle",
+          "date_range": "2021 - 2024"
+        },
+        {
+          "school": "CPGE - Classes préparatoires aux grandes écoles",
+          "degree": "MPSI/MP",
+          "date_range": "Sep 2019 - Jul 2021"
+        }
+      ],
+      "estimated_age": 24
+    },
+    {
+      "name": "FATIMA OUAATOU",
+      "url": "https://www.linkedin.com/in/fatima-ouaatou",
+      "location": "marrakech",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Female",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQHVm5scPfT_Mg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1731013042977?e=1765411200&v=beta&t=nOYASnuer2Aa9RHY9zoWHdmo6tx9XSk-Hupp0evXmS4",
+      "search_rank": 9,
+      "education": [
+        {
+          "school": "Faculté des Sciences et Techniques Gueliz - Marrakech",
+          "degree": "Master Artificiel intelligence & computer engineering",
+          "date_range": "Aug 2022 - Jun 2024"
+        },
+        {
+          "school": "Faculté des Sciences et Techniques Gueliz - Marrakech",
+          "degree": "Licentiate degree, Informatique",
+          "date_range": "2021 - 2022"
+        }
+      ],
+      "estimated_age": 24
+    },
+    {
+      "name": "Fatima AHANDI",
+      "url": "https://www.linkedin.com/in/fatima-ahandi-a50a23171",
+      "location": "marrakech",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Female",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQHS4j9hxZMgNg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1703208774985?e=1765411200&v=beta&t=p3AHeKiawDfpydwvM5fsSHgep14rAGxAU5Qrb7SvOGU",
+      "search_rank": 10,
+      "education": [
+        {
+          "school": "UM6P - Mohammed VI Polytechnic University | School of Collective Intelligence",
+          "degree": "Master in Collective Intelligence , Data Science",
+          "date_range": null
+        },
+        {
+          "school": "Université Abdelmalek Essaâdi Tétouan",
+          "degree": "Bachelor's degree, Computer Science",
+          "date_range": null
+        }
+      ],
+      "estimated_age": null
+    },
+    {
+      "name": "Nassira BOURASS",
+      "url": "https://www.linkedin.com/in/nassira-bourass-720389233",
+      "location": "rabat",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Female",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQGiEqDURotQ-w/profile-displayphoto-scale_100_100/B4EZhEpTZWGcAc-/0/1753498337008?e=1765411200&v=beta&t=CSth75GC0k-JjlJh-LN_Vne3cDYIUjTXg8LVFI-0cB0",
+      "search_rank": 1,
+      "education": [
+        {
+          "school": "ENSA TANGER",
+          "degree": "Data Science",
+          "date_range": "Sep 2024"
+        },
+        {
+          "school": "Faculty of Science and Technology Tangier",
+          "degree": "Genie informatique",
+          "date_range": "Jul 2022"
+        }
+      ],
+      "estimated_age": 24
+    },
+    {
+      "name": "Rania Oussaleh Taoufik",
+      "url": "https://www.linkedin.com/in/rania-oussaleh-taoufik-920707200",
+      "location": "rabat",
+      "keyword": "data scientist",
+      "position": null,
+      "gender": "Unknown",
+      "image_url": null,
+      "search_rank": 2,
+      "education": [
+        {
+          "school": "Faculty of Science and Technology Tangier",
+          "degree": "Master's degree, BIG DATA",
+          "date_range": "Oct 2022 - Jun 2024"
+        },
+        {
+          "school": "Faculty of Science and Technology Tangier",
+          "degree": "licence, génie informatique",
+          "date_range": "Sep 2021 - Jun 2022"
+        }
+      ],
+      "estimated_age": 24
+    },
+    {
+      "name": "Badr Elhot",
+      "url": "https://www.linkedin.com/in/badr-elhot-661087301",
+      "location": "meknes",
+      "keyword": "ai engineer",
+      "position": "AI Engineer Student | NLP | AI Agents",
+      "gender": "Male",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQF77emmivGARQ/profile-displayphoto-shrink_100_100/B4EZbe_qqWHcAc-/0/1747497954882?e=1765411200&v=beta&t=4knEUpErbhDxVTGthDzVQjqp556z0vBgK1_qlCIOGcg",
+      "search_rank": 1,
+      "education": [
+        {
+          "school": "École Nationale Supérieure d'Arts et Métiers (ENSAM-Méknes - المدرسة الوطنية العليا للفنون و المهن",
+          "degree": "Engineering",
+          "date_range": "Jul 2026"
+        }
+      ],
+      "estimated_age": null
+    },
+    {
+      "name": "Chaimae Biyaye",
+      "url": "https://www.linkedin.com/in/chaimae-biyaye-57b523240",
+      "location": "meknes",
+      "keyword": "ai engineer",
+      "position": "AI Engineer",
+      "gender": "Female",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQGKxuFo1LZRUA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1728406219428?e=1765411200&v=beta&t=CZO94ik7xpOK98jFQ3jOrJO4x6JsXWxI4jD_S-PNGFk",
+      "search_rank": 2,
+      "education": [
+        {
+          "school": "Université Euro-Méditerranéenne de Fès",
+          "degree": "Diplôme d'ingénieur, Intelligence artificielle",
+          "date_range": "Sep 2019 - Jul 2024"
+        },
+        {
+          "school": "Emile Anouar High School",
+          "degree": "Baccalaureate Degree, Mathematical Sciences-A",
+          "date_range": "Sep 2018 - Jun 2019"
+        }
+      ],
+      "estimated_age": 24
+    },
+    {
+      "name": "meryem zahar",
+      "url": "https://www.linkedin.com/in/meryem-zahar-90649b276",
+      "location": "fez",
+      "keyword": "data scientist",
+      "position": "Data scientist and frontend developper",
+      "gender": "Female",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQFMRgsNtbQLxA/profile-displayphoto-shrink_100_100/B4EZd7MmuEHIAU-/0/1750118592705?e=1765411200&v=beta&t=fwTs_eqwYdQQ_u2tlstu2XEWBL7N4h6FDSFb6OBhhf8",
+      "search_rank": 1,
+      "education": [
+        {
+          "school": "École Nationale des Sciences Appliquées de Fès",
+          "degree": "Licence, Développement web",
+          "date_range": "Nov 2023 - Jul 2024"
+        },
+        {
+          "school": "École supérieure de technologie de fes",
+          "degree": "Diplôme universitaire de technologie (DUT), Statistiques et informatique décisionnelle",
+          "date_range": "2021"
+        }
+      ],
+      "estimated_age": null
+    },
+    {
+      "name": "Anas MOUADA",
+      "url": "https://www.linkedin.com/in/anas-mouada-3654072b7",
+      "location": "fez",
+      "keyword": "data scientist",
+      "position": "Aspiring Data Analyst | Aspiring Data Scientist | Machine Learning Enthusiast",
+      "gender": "Male",
+      "image_url": null,
+      "search_rank": 2,
+      "education": [
+        {
+          "school": "Faculté des Sciences de Fès",
+          "degree": "Master's degree, Big Data and Intelligent System",
+          "date_range": "Oct 2024 - Jun 2026"
+        },
+        {
+          "school": "Université Ibn Zohr",
+          "degree": "Bachelor's degree, Sciences Mathématiques et Informatiques",
+          "date_range": "Jul 2024"
+        }
+      ],
+      "estimated_age": null
+    },
+    {
+      "name": "Benzakour Anouar",
+      "url": "https://www.linkedin.com/in/benzakour-anouar-12735723",
+      "location": "casablanca",
+      "keyword": "data manager",
+      "position": "Senior Business Data operations Manager",
+      "gender": "Male",
+      "image_url": "https://media.licdn.com/dms/image/v2/C4D03AQF0k5dIcj51JQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1641480262740?e=1766016000&v=beta&t=VSvlGJBVGcCCjxjkHojuqgyxxF7kafMaW9_JT1wUUi0",
+      "search_rank": 1,
+      "education": [
+        {
+          "school": "IUP IDS Lyon 2",
+          "degree": "Master Ingénierie Informatique de la Décision et Evaluation Economique, Information Technology",
+          "date_range": "2008"
+        },
+        {
+          "school": "IUP MIAGE Paris 12",
+          "degree": "Licence MIAGE, Information Technology",
+          "date_range": "2007"
+        }
+      ],
+      "estimated_age": 41
+    },
+    {
+      "name": "Saad Ounzar",
+      "url": "https://www.linkedin.com/in/saad-ounzar",
+      "location": "casablanca",
+      "keyword": "data manager",
+      "position": "Data manager",
+      "gender": "Male",
+      "image_url": "https://media.licdn.com/dms/image/v2/C4D03AQF0k5dIcj51JQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1641480262740?e=1766016000&v=beta&t=VSvlGJBVGcCCjxjkHojuqgyxxF7kafMaW9_JT1wUUi0",
+      "search_rank": 2,
+      "education": [
+        {
+          "school": "faculté des sciences et techniques Marrakech",
+          "degree": "Master en science des données et aide à la décision, Informatique",
+          "date_range": "2019 - 2021"
+        },
+        {
+          "school": "faculté des sciences et techniques d'alhoceima",
+          "degree": "licence des sciences et techniques, mathématiques et informatiques",
+          "date_range": "2018 - 2019"
+        }
+      ],
+      "estimated_age": 28
+    },
+    {
+      "name": "Hibat Allah Chama B.",
+      "url": "https://www.linkedin.com/in/hibat-allah-chama-b-8656bb160",
+      "location": "rabat",
+      "keyword": "data analyst",
+      "position": "Data Analyst @Capgemini Engineering",
+      "gender": "Unknown",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQHF_QMBweepsw/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1719936011850?e=1766016000&v=beta&t=h-XDtmb5_PIkM1ALSKoyybiRbvSv987VHgnCXz84cTY",
+      "search_rank": 1,
+      "education": [
+        {
+          "school": "Ecole Nationale Supérieure d'Informatique et d'Analyse des Systèmes - ENSIAS",
+          "degree": "Master's degree, Data Science and Big Data",
+          "date_range": "Oct 2021 - Oct 2023"
+        },
+        {
+          "school": "Faculty of Science and Technology Tangier",
+          "degree": "Bachelor of Science - BS, Computer Engineering",
+          "date_range": "Sep 2018 - Jun 2021"
+        }
+      ],
+      "estimated_age": 26
+    },
+    {
+      "name": "Hiba Haddid",
+      "url": "https://www.linkedin.com/in/hiba-haddid-a698a1236",
+      "location": "marrakech",
+      "keyword": "dentist",
+      "position": "Dentist at Private practice",
+      "gender": "Female",
+      "image_url": "https://media.licdn.com/dms/image/v2/D5635AQGXW0U7XhrOLA/profile-framedphoto-shrink_100_100/profile-framedphoto-shrink_100_100/0/1660002772504?e=1765746000&v=beta&t=s4lczohAKoRLfxGxhTGx6Yez-HgRfejiisGTpPDo04s",
+      "search_rank": 1,
+      "education": [
+        {
+          "school": "Vinnic'kij Deržavnij Medicnij Universitet im M.I.Pirogova",
+          "degree": "DMD, Dentistry",
+          "date_range": "Sep 2018 - Jun 2023"
+        },
+        {
+          "school": "Lycee les printemps",
+          "degree": "Sep 2016 - Jul 2017",
+          "date_range": "Sep 2016 - Jul 2017"
+        }
+      ],
+      "estimated_age": 27
+    },
+    {
+      "name": "Oussama Ettalhaoui",
+      "url": "https://www.linkedin.com/in/oussama-ettalhaoui",
+      "location": "marrakech",
+      "keyword": "ai engineer",
+      "position": "Software Engineer | AI & Data Enthusiast",
+      "gender": "Male",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQE1_c8VIeEEAg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1729342965137?e=1766620800&v=beta&t=-rj_AsMKODTpNi5KBb3RbhjCt0v9_0F431MlqzCMBXE",
+      "search_rank": 1,
+      "education": [
+        {
+          "school": "Université Chouaïb Doukkali El Jadida",
+          "degree": "Master ingénierie informatique et Analyse de données (2lAD)",
+          "date_range": "Nov 2023 - 2025"
+        },
+        {
+          "school": "Faculté des Sciences et Techniques Gueliz - Marrakech",
+          "degree": "Licence Systèmes Informatiques Répartis",
+          "date_range": "2023"
+        }
+      ],
+      "estimated_age": 24
+    },
+    {
+      "name": "Soufiane EL AMRI",
+      "url": "https://www.linkedin.com/in/soufiane-el-amri44a27819a",
+      "location": "tanger",
+      "keyword": "data analyst",
+      "position": "Data Scientist | Data Analyst @Freelancer",
+      "gender": "Male",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQFO8NqnbWIRSw/profile-displayphoto-scale_100_100/B4EZo0HzNIHUAc-/0/1761811053034?e=1766620800&v=beta&t=w78UIOQLxIjNHP9_57ySJP6eKwM8ugxCywarurIZvXs",
+      "search_rank": 1,
+      "education": [
+        {
+          "school": "Faculty of Science and Technology Tangier",
+          "degree": "Master's degree, Big Data",
+          "date_range": "2020 - 2022"
+        },
+        {
+          "school": "Faculty of Science and Technology Tangier",
+          "degree": "Bachelor's degree, Informatique",
+          "date_range": "2019 - 2020"
+        }
+      ],
+      "estimated_age": 27
+    },
+    {
+      "name": "ibtissam salhi",
+      "url": "https://www.linkedin.com/in/ibtissam-salhi-24b185233",
+      "location": "rabat",
+      "keyword": "data engineer",
+      "position": "Data Engineer @CDM",
+      "gender": "Female",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4D03AQGMLWIU9pZX1g/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1727380265919?e=1766620800&v=beta&t=QafrFjtnoUv7i2ubqCSFV5VEi4tCN2KyWv0ygn5JtpQ",
+      "search_rank": 1,
+      "education": [
+        {
+          "school": "Institut National de Statistique et d'Economie Appliquée (INSEA)",
+          "degree": "Data and software engineering",
+          "date_range": "Sep 2022 - Jul 2025"
+        },
+        {
+          "school": "CPGE - Classes préparatoires aux grandes écoles",
+          "degree": "Associate of Science - AS, MP",
+          "date_range": "2020 - 2022"
+        }
+      ],
+      "estimated_age": 23
+    },
+    {
+      "name": "Aya Ennair",
+      "url": "https://www.linkedin.com/in/ayaennair",
+      "location": "marrakech",
+      "keyword": "data scientist",
+      "position": "Data Scientist",
+      "gender": "Female",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E03AQETcU6ms2tE3A/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1728475734466?e=1766620800&v=beta&t=i1OrKs4cWKEPoGnC-_fHg6PfBpeINVEcblusL3cCMTI",
+      "search_rank": 1,
+      "education": [
+        {
+          "school": "Faculté des Sciences Semlalia Marrakech",
+          "degree": "Master, Data science",
+          "date_range": null
+        },
+        {
+          "school": "École Supérieure de Technologie de Safi",
+          "degree": "Licence professionnelle, Ingénierie des systèmes d'information et réseaux",
+          "date_range": "Oct 2022 - Jun 2023"
+        }
+      ],
+      "estimated_age": 24
+    }
+  ]
+}

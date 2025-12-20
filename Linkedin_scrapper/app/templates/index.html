@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Scraper Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a66c2;
+            --primary-hover: #004182;
+            --bg-color: #f3f2ef;
+            --card-bg: #ffffff;
+            --text-main: #191919;
+            --text-secondary: #666666;
+            --border-color: #e0e0e0;
+            --success: #057642;
+            --warning: #f5c344;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(10, 102, 194, 0.1);
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .col {
+            flex: 1;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #046036;
+        }
+
+        .btn-warning {
+            background-color: #f8c77e;
+            color: #5e4200;
+        }
+
+        .btn-warning:hover {
+            background-color: #f5b655;
+        }
+
+        .loader {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #logs-container {
+            background: #1e1e1e;
+            color: #4caf50;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            height: 250px;
+            overflow-y: auto;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+
+        #result {
+            background: transparent;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            display: none;
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 20px;
+            align-items: start;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--bg-color);
+            background-color: #e0e0e0;
+            flex-shrink: 0;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 4px 0;
+        }
+
+        .profile-name a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .profile-name a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .profile-position {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .profile-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--bg-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>LinkedIn Profile Scraper and Digital Marketing Campaign</h1>
+        <div class="grid">
+            <!-- Section A: General Extraction -->
+            <div class="card">
+                <h2>AI Workflow Scraper </h2>
+                <div class="form-group">
+                    <label for="keyword">Job Title / Keyword</label>
+                    <input type="text" id="keyword" placeholder="e.g., Data Scientist">
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <select id="location">
+                        <option value="" disabled selected>Select a location</option>
+                        {% for loc in locations %}
+                        <option value="{{ loc }}">{{ loc|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="limit">Number of Profiles</label>
+                    <input type="number" id="limit" value="2" min="1" max="50">
+                </div>
+                <button class="btn-primary" onclick="startScraping()">
+                    Start Scraping <div class="loader" id="loader"></div>
+                </button>
+            </div>
+
+            <!-- Section C: Intelligent Extraction -->
+            <div class="card" style="border-top: 4px solid #7c4dff;">
+                <h2> Intelligent Extraction (Database)</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    Filter existing database profiles using natural language.
+                </p>
+                <div class="form-group">
+                    <label for="agent-prompt">Prompt</label>
+                    <textarea id="agent-prompt" rows="3"
+                        style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit;"
+                        placeholder="e.g., Find me all female data scientists in Paris who are under 30 years old."></textarea>
+                </div>
+                <button class="btn-primary" style="background-color: #7c4dff;" onclick="runAgent()">Run DB
+                    Agent</button>
+            </div>
+
+
+
+            <!-- Section E: Email Campaign -->
+            <div class="card" style="border-top: 4px solid #7c4dff;">
+                <h2>Intelligent Email Campaign</h2>
+                <div class="form-group">
+                    <label for="email-csv">Recipient List (CSV)</label>
+                    <input type="file" id="email-csv" accept=".csv">
+                </div>
+                <div class="form-group">
+                    <label for="email-image">Attachment Image </label>
+                    <input type="file" id="email-image" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="email-subject">Subject</label>
+                    <input type="text" id="email-subject" placeholder="e.g., Special Offer">
+                </div>
+                <div class="form-group">
+                    <label for="email-message">Message</label>
+                    <textarea id="email-message" rows="4"
+                        style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit;"
+                        placeholder="Hello {name}, ..."></textarea>
+                </div>
+                <button class="btn-primary" style="background-color: #7c4dff;" onclick="sendEmails()">Send
+                    Emails</button>
+            </div>
+        </div>
+        <h2> Classic extraction from database :<br></h2>
+        <div class="grid">
+
+
+            <!-- Section B: Advanced Filtering -->
+            <div class="card">
+                <h2> Advanced Filtering</h2>
+                <div class="row">
+                    <div class="col form-group">
+                        <label for="filter-keyword">Keyword</label>
+                        <input type="text" id="filter-keyword" placeholder="e.g., Engineer">
+                    </div>
+                    <div class="col form-group">
+                        <label for="filter-location">Location</label>
+                        <select id="filter-location">
+                            <option value="" disabled selected>Select a location</option>
+                            {% for loc in locations %}
+                            <option value="{{ loc }}">{{ loc|title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="filter-gender">Gender</label>
+                    <select id="filter-gender">
+                        <option value="any">Any</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="unknown">Unknown</option>
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="col form-group">
+                        <label for="age-min">Min Age</label>
+                        <input type="number" id="age-min" placeholder="22">
+                    </div>
+                    <div class="col form-group">
+                        <label for="age-max">Max Age</label>
+                        <input type="number" id="age-max" placeholder="60">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="filter-education">Education</label>
+                    <input type="text" id="filter-education" placeholder="e.g., Computer Science">
+                </div>
+
+                <button class="btn-success" onclick="applyFilters()">Apply Filters</button>
+            </div>
+            <!-- Section D: Download CSV -->
+            <div class="card"
+                style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
+                <h2>📂 Export Data</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 24px;">
+                    Download the currently filtered results as a standardized CSV file.
+                </p>
+                <button class="btn-warning" onclick="downloadCSV()">
+                    Download CSV
+                </button>
+            </div>
+
+        </div>
+
+        <div id="logs-container"></div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let logInterval;
+
+        async function fetchLogs() {
+            try {
+                const response = await fetch('/logs');
+                const data = await response.json();
+                const logsDiv = document.getElementById('logs-container');
+                logsDiv.innerHTML = data.logs.join('<br>');
+                logsDiv.scrollTop = logsDiv.scrollHeight;
+            } catch (e) {
+                console.error("Failed to fetch logs", e);
+            }
+        }
+
+        async function startScraping() {
+            const keyword = document.getElementById('keyword').value;
+            const location = document.getElementById('location').value;
+            const limit = document.getElementById('limit').value;
+            const resultDiv = document.getElementById('result');
+            const logsDiv = document.getElementById('logs-container');
+            const loader = document.getElementById('loader');
+
+            if (!keyword || !location) {
+                alert("Please fill in both fields");
+                return;
+            }
+
+            resultDiv.style.display = 'none';
+            resultDiv.textContent = '';
+            logsDiv.style.display = 'block';
+            logsDiv.textContent = 'Initializing...';
+            loader.style.display = 'inline-block';
+
+            // Start polling logs
+            logInterval = setInterval(fetchLogs, 1000);
+
+            try {
+                const response = await fetch('/scrape/linkedin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ keyword, location, limit: parseInt(limit) || 2 }),
+                });
+
+                const data = await response.json();
+                resultDiv.style.display = 'block';
+
+                if (data.status === 'completed' && data.profiles && data.profiles.length > 0) {
+                    let html = `<h3>Found ${data.profiles.length} profiles</h3>`;
+
+                    data.profiles.forEach(profile => {
+                        const imageUrl = profile.image_url || 'https://static.licdn.com/sc/h/9c8pery4andzj6ohjkjp54ma2';
+                        const name = profile.name || 'Unknown Name';
+                        const position = profile.position || 'No position';
+                        const location = profile.location || 'Unknown location';
+                        const age = profile.estimated_age ? `${profile.estimated_age} years` : 'Age unknown';
+                        const gender = profile.gender || 'Unknown';
+                        const profileUrl = profile.url || '#';
+
+                        let eduHtml = '';
+                        if (profile.education && profile.education.length > 0) {
+                            eduHtml = '<div style="margin-top:8px; font-size:0.85rem; color:#666;"><strong>Education:</strong><ul style="margin:4px 0; padding-left:20px;">';
+                            profile.education.forEach(edu => {
+                                eduHtml += `<li>${edu.school || 'N/A'} - ${edu.degree || 'N/A'} (${edu.date_range || 'N/A'})</li>`;
+                            });
+                            eduHtml += '</ul></div>';
+                        }
+
+                        html += `
+                        <div class="profile-card">
+                            <img src="${imageUrl}" alt="${name}" class="profile-image" onerror="this.src='https://static.licdn.com/sc/h/9c8pery4andzj6ohjkjp54ma2'">
+                            <div class="profile-info">
+                                <h3 class="profile-name"><a href="${profileUrl}" target="_blank">${name}</a></h3>
+                                <div class="profile-position">${position}</div>
+                                <div class="profile-meta">
+                                    <span class="meta-item">📍 ${location}</span>
+                                    <span class="meta-item">🎂 ${age}</span>
+                                    <span class="meta-item">⚧ ${gender}</span>
+                                </div>
+                                ${eduHtml}
+                            </div>
+                        </div>
+                        `;
+                    });
+                    resultDiv.innerHTML = html;
+                } else {
+                    resultDiv.innerHTML = `<div class="card"><p>No profiles found or scraping failed.</p><pre>${JSON.stringify(data, null, 2)}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.style.display = 'block';
+                resultDiv.textContent = 'Error: ' + error.message;
+            } finally {
+                loader.style.display = 'none';
+                clearInterval(logInterval);
+                await fetchLogs(); // Final log fetch
+            }
+        }
+
+        async function applyFilters() {
+            const keyword = document.getElementById('filter-keyword').value;
+            const location = document.getElementById('filter-location').value;
+            const gender = document.getElementById('filter-gender').value;
+            const ageMin = document.getElementById('age-min').value;
+            const ageMax = document.getElementById('age-max').value;
+            const education = document.getElementById('filter-education').value;
+
+            const resultDiv = document.getElementById('result');
+            const logsDiv = document.getElementById('logs-container');
+
+            resultDiv.style.display = 'none';
+            resultDiv.textContent = '';
+            logsDiv.style.display = 'block';
+            logsDiv.textContent = 'Applying filters...';
+
+            // Start polling logs
+            logInterval = setInterval(fetchLogs, 1000);
+
+            try {
+                const response = await fetch('/filter/profiles', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        keyword: keyword,
+                        location: location,
+                        gender: gender,
+                        min_age: ageMin ? parseInt(ageMin) : null,
+                        max_age: ageMax ? parseInt(ageMax) : null,
+                        education: education
+                    }),
+                });
+
+                const data = await response.json();
+                resultDiv.style.display = 'block';
+
+                if (data.status === 'success' && data.profiles && data.profiles.length > 0) {
+                    let html = `<h3>Found ${data.count} profiles</h3>`;
+
+                    data.profiles.forEach(profile => {
+                        const imageUrl = profile.image_url || 'https://static.licdn.com/sc/h/9c8pery4andzj6ohjkjp54ma2';
+                        const name = profile.name || 'Unknown Name';
+                        const position = profile.position || 'No position';
+                        const location = profile.location || 'Unknown location';
+                        const age = profile.age ? `${profile.age} years` : 'N/A';
+                        const gender = profile.gender || 'N/A';
+                        const profileUrl = profile.profile_url || '#';
+
+                        html += `
+                        <div class="profile-card">
+                            <img src="${imageUrl}" alt="${name}" class="profile-image" onerror="this.src='https://static.licdn.com/sc/h/9c8pery4andzj6ohjkjp54ma2'">
+                            <div class="profile-info">
+                                <h3 class="profile-name"><a href="${profileUrl}" target="_blank">${name}</a></h3>
+                                <div class="profile-position">${position}</div>
+                                <div class="profile-meta">
+                                    <span class="meta-item">📍 ${location}</span>
+                                    <span class="meta-item">🎂 ${age}</span>
+                                    <span class="meta-item">  ${gender}</span>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    });
+
+                    resultDiv.innerHTML = html;
+                } else {
+                    resultDiv.innerHTML = `<div class="card"><p>No profiles found matching your criteria.</p></div>`;
+                }
+            } catch (error) {
+                resultDiv.style.display = 'block';
+                resultDiv.textContent = 'Error: ' + error.message;
+            } finally {
+                clearInterval(logInterval);
+                await fetchLogs();
+            }
+        }
+
+        function downloadCSV() {
+            const keyword = document.getElementById('filter-keyword').value;
+            const location = document.getElementById('filter-location').value;
+            const gender = document.getElementById('filter-gender').value;
+            const ageMin = document.getElementById('age-min').value;
+            const ageMax = document.getElementById('age-max').value;
+            const education = document.getElementById('filter-education').value;
+
+            const params = new URLSearchParams();
+            if (keyword) params.append('keyword', keyword);
+            if (location) params.append('location', location);
+            if (gender) params.append('gender', gender);
+            if (ageMin) params.append('min_age', ageMin);
+            if (ageMax) params.append('max_age', ageMax);
+            if (education) params.append('education', education);
+
+            window.location.href = `/filter/export_csv?${params.toString()}`;
+        }
+
+        async function runAgent() {
+            const prompt = document.getElementById('agent-prompt').value;
+            const resultDiv = document.getElementById('result');
+            const logsDiv = document.getElementById('logs-container');
+
+            if (!prompt) {
+                alert("Please enter a prompt");
+                return;
+            }
+
+            resultDiv.style.display = 'none';
+            resultDiv.textContent = '';
+            logsDiv.style.display = 'block';
+            logsDiv.textContent = 'Agent is thinking...';
+
+            // Start polling logs
+            logInterval = setInterval(fetchLogs, 1000);
+
+            try {
+                const response = await fetch('/agent/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt }),
+                });
+
+                const data = await response.json();
+                resultDiv.style.display = 'block';
+
+                let html = `<h3>Agent Response</h3><p style="white-space: pre-wrap;">${data.response}</p>`;
+
+                // Check if we have tool outputs with profiles
+                if (data.tool_outputs) {
+                    data.tool_outputs.forEach(output => {
+                        if (output.tool === 'filter_profiles_tool' && output.result && output.result.length > 0) {
+                            html += `<h4>Found ${output.result.length} profiles via tool</h4>`;
+                            output.result.forEach(profile => {
+                                const imageUrl = profile.image_url || 'https://static.licdn.com/sc/h/9c8pery4andzj6ohjkjp54ma2';
+                                const name = profile.name || 'Unknown Name';
+                                const position = profile.position || 'No position';
+                                const location = profile.location || 'Unknown location';
+                                const age = profile.age ? `${profile.age} years` : 'N/A';
+                                const gender = profile.gender || 'N/A';
+                                const profileUrl = profile.profile_url || '#';
+
+                                html += `
+                                <div class="profile-card">
+                                    <img src="${imageUrl}" alt="${name}" class="profile-image" onerror="this.src='https://static.licdn.com/sc/h/9c8pery4andzj6ohjkjp54ma2'">
+                                    <div class="profile-info">
+                                        <h3 class="profile-name"><a href="${profileUrl}" target="_blank">${name}</a></h3>
+                                        <div class="profile-position">${position}</div>
+                                        <div class="profile-meta">
+                                            <span class="meta-item">📍 ${location}</span>
+                                            <span class="meta-item">🎂 ${age}</span>
+                                            <span class="meta-item">  ${gender}</span>
+                                        </div>
+                                        ${(() => {
+                                        let eduHtml = '';
+                                        if (profile.education && profile.education.length > 0) {
+                                            eduHtml = '<div style="margin-top:8px; font-size:0.85rem; color:#666;"><strong>Education:</strong><ul style="margin:4px 0; padding-left:20px;">';
+                                            profile.education.forEach(edu => {
+                                                eduHtml += `<li>${edu.school || 'N/A'} - ${edu.degree || 'N/A'} (${edu.date_range || 'N/A'})</li>`;
+                                            });
+                                            eduHtml += '</ul></div>';
+                                        }
+                                        return eduHtml;
+                                    })()}
+                                    </div>
+                                </div>
+                                `;
+                            });
+                        } else if (output.tool === 'get_profile_by_name_tool' && output.result) {
+                            const profile = output.result;
+                            const imageUrl = profile.image_url || 'https://static.licdn.com/sc/h/9c8pery4andzj6ohjkjp54ma2';
+                            html += `<h4>Profile Found</h4>
+                                <div class="profile-card">
+                                    <img src="${imageUrl}" alt="${profile.name}" class="profile-image" onerror="this.src='https://static.licdn.com/sc/h/9c8pery4andzj6ohjkjp54ma2'">
+                                    <div class="profile-info">
+                                        <h3 class="profile-name"><a href="${profile.profile_url}" target="_blank">${profile.name}</a></h3>
+                                        <div class="profile-position">${profile.position}</div>
+                                        <div class="profile-meta">
+                                            <span class="meta-item">📍 ${profile.location}</span>
+                                            <span class="meta-item">🎂 ${profile.age}</span>
+                                            <span class="meta-item">  ${profile.gender}</span>
+                                        </div>
+                                        ${(() => {
+                                    let eduHtml = '';
+                                    if (profile.education && profile.education.length > 0) {
+                                        eduHtml = '<div style="margin-top:8px; font-size:0.85rem; color:#666;"><strong>Education:</strong><ul style="margin:4px 0; padding-left:20px;">';
+                                        profile.education.forEach(edu => {
+                                            eduHtml += `<li>${edu.school || 'N/A'} - ${edu.degree || 'N/A'} (${edu.date_range || 'N/A'})</li>`;
+                                        });
+                                        eduHtml += '</ul></div>';
+                                    }
+                                    return eduHtml;
+                                })()}
+                                    </div>
+                                </div>`;
+                        } else if (output.tool === 'export_csv_tool') {
+                            if (output.result.status === 'success') {
+                                html += `
+                                <div class="card" style="border-left: 4px solid #28a745; background-color: #f0fff4;">
+                                    <h3>📂 CSV Export Ready</h3>
+                                    <p>Successfully exported ${output.result.count} profiles.</p>
+                                    <a href="${output.result.download_url}" class="btn-primary" style="text-decoration: none; display: inline-block; width: auto; padding: 10px 20px;">
+                                        Download CSV ⬇️
+                                    </a>
+                                </div>`;
+                            } else {
+                                html += `<div class="card" style="border-left: 4px solid red;"><p>❌ CSV Export Failed: ${output.result.error}</p></div>`;
+                            }
+                        }
+                    });
+                }
+
+                resultDiv.innerHTML = html;
+
+            } catch (error) {
+                resultDiv.style.display = 'block';
+                resultDiv.textContent = 'Error: ' + error.message;
+            } finally {
+                clearInterval(logInterval);
+                await fetchLogs();
+            }
+        }
+
+        async function sendEmails() {
+            const csvFile = document.getElementById('email-csv').files[0];
+            const imageFile = document.getElementById('email-image').files[0];
+            const subject = document.getElementById('email-subject').value;
+            const message = document.getElementById('email-message').value;
+            const resultDiv = document.getElementById('result');
+            const logsDiv = document.getElementById('logs-container');
+
+            if (!csvFile || !subject || !message) {
+                alert("Please provide CSV file, subject, and message.");
+                return;
+            }
+
+            resultDiv.style.display = 'none';
+            resultDiv.textContent = '';
+            logsDiv.style.display = 'block';
+            logsDiv.textContent = 'Sending emails...';
+
+            const formData = new FormData();
+            formData.append('csv_file', csvFile);
+            if (imageFile) {
+                formData.append('image_file', imageFile);
+            }
+            formData.append('subject', subject);
+            formData.append('message', message);
+
+            try {
+                const response = await fetch('/email/send', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                resultDiv.style.display = 'block';
+
+                if (data.error) {
+                    resultDiv.innerHTML = `<div class="card" style="border-left: 4px solid red;"><p>❌ ${data.error}</p></div>`;
+                } else {
+                    let html = `<h3>Email Campaign Results</h3>`;
+                    html += `<p><strong>Total:</strong> ${data.total}</p>`;
+                    html += `<p><strong>Success:</strong> ${data.success_count} ✅</p>`;
+                    html += `<p><strong>Failures:</strong> ${data.failure_count} ❌</p>`;
+
+                    if (data.failures && data.failures.length > 0) {
+                        html += `<h4>Failure Details:</h4><ul>`;
+                        data.failures.forEach(fail => {
+                            html += `<li>${fail}</li>`;
+                        });
+                        html += `</ul>`;
+                    }
+                    resultDiv.innerHTML = html;
+                }
+
+            } catch (error) {
+                resultDiv.style.display = 'block';
+                resultDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
+```
