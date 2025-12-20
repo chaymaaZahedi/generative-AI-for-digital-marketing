@@ -72,6 +72,7 @@ This project harnesses the power of modern AI and web frameworks:
 ## 📄 Documentation
 
 For more detailed project background and theoretical underpinnings, please refer to the included project documentation:
-*   [`IA_gen_project_img_gen.pdf`](./IA_gen_project_img_gen.pdf)
 *   [`rapport_projet_gen_IA.pdf`](./rapport_projet_gen_IA.pdf)
+*   [`IA_gen_project_img_gen.pdf`](./IA_gen_project_img_gen.pdf)
+
 
