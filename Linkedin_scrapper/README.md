@@ -113,7 +113,7 @@ AI_Generative/
 ---
 
 ## 🏃‍♂️ Running the Application
-
+0.  **Log in Linkedin via Chrome with your credentials** 
 1.  **Start the FastAPI Server**:
     This will start the web application and the API.
     ```bash
