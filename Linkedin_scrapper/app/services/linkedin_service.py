@@ -1,4 +1,3 @@
-
 import asyncio
 import json
 import logging
@@ -8,6 +7,7 @@ from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, asdict
 from urllib.parse import quote
 from datetime import datetime
+import sys
 
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
@@ -301,7 +301,8 @@ Respond with ONLY a number representing the estimated age (e.g., 28). If you can
 
     async def run(self, search_url: str, keywords: str, location_name: str, limit: int = 2, extract_education: bool = True) -> Dict[str, Any]:
         # Use the configured python environment to run the server script
-        server_params = StdioServerParameters(command="python", args=[settings.MCP_SERVER_SCRIPT], env=None)
+        LogCollector.add(f"🚀 Starting MCP server with: {sys.executable} {settings.MCP_SERVER_SCRIPT}")
+        server_params = StdioServerParameters(command=sys.executable, args=[settings.MCP_SERVER_SCRIPT], env=None)
         try:
             async with stdio_client(server_params) as (read, write):
                 async with ClientSession(read, write) as mcp_session:
@@ -339,7 +340,22 @@ Respond with ONLY a number representing the estimated age (e.g., 28). If you can
             LogCollector.add(f"❌ Agent failed: {e}")
             import traceback
             traceback.print_exc()
-            return {"success": False, "error": str(e), "profiles": [p.to_dict() for p in self.collected_profiles]}
+            error_msg = str(e)
+            import traceback
+            traceback.print_exc()
+
+            # Check for ExceptionGroup (Python 3.11+)
+            if hasattr(e, 'exceptions'):
+                sub_errors = []
+                for idx, sub_exc in enumerate(e.exceptions):
+                    sub_errors.append(f"Sub-exception {idx+1}: {sub_exc}")
+                    LogCollector.add(f"   ❌ Sub-exception {idx+1}: {sub_exc}")
+                    logging.error(f"Sub-exception {idx+1}: {sub_exc}")
+                if sub_errors:
+                    error_msg += " | Details: " + "; ".join(sub_errors)
+
+            LogCollector.add(f"❌ Agent failed: {error_msg}")
+            return {"success": False, "error": error_msg, "profiles": [p.to_dict() for p in self.collected_profiles]}
 
 async def run_linkedin_workflow(keyword: str, location: str, limit: int = 2) -> Dict[str, Any]:
     """Orchestrate the entire workflow"""
